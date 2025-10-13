@@ -1,5 +1,7 @@
 import "./App.css";
 
+// tugas variant class
+
 function App() {
   return (
     <>
