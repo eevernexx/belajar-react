@@ -13,7 +13,7 @@ function PostCard({ id, userId, title, body }) {
           isClicked
             ? 'bg-[#b83016] text-white'
             : 'bg-gray-500 text-white'
-        } group-hover:bg-red-300 transition-colors`}
+        } transition-colors`}
       >
         {isClicked ? 'Tombol sudah diklik' : 'Silakan Klik'}
       </button>
