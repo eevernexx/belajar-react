@@ -1,13 +1,16 @@
-@import url('https://fonts.googleapis.com/css2?family=Coral+Pixels&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Pixelify+Sans:wght@400..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Press+Start+2P&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
+html {
+  font-size: 75%;
+}
+
 @import "tailwindcss";
 
 @theme {
-  --font-body: "Inter", serif;
-  --font-poppins: "Montsterrat", sans-serif;
+  --font-body: "Inter", sans-serif;
+  --font-poppins: "Montserrat", sans-serif;
 
-  --color-primary: #e73d1c;
-
-  --color-primary: #299d91;
+    --color-primary: #299d91;
   --color-secondary: #525256;
   --color-defaultBlack: #191919;
   --color-gray-01: #666666;
