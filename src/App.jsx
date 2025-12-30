@@ -5,6 +5,7 @@ import ErrorPage from "./pages/error";
 import DashboardPage from "./pages/dashboard";
 import BalancePage from "./pages/balance";
 import { createBrowserRouter, Link, RouterProvider } from "react-router-dom";
+import { ThemeContextProvider } from "./context/themeContext";
 
 function App() {
   const myRouter = createBrowserRouter([
@@ -32,9 +33,9 @@ function App() {
   ]);
 
   return (
-    <>
+    <ThemeContextProvider>
       <RouterProvider router={myRouter} />
-    </>
+    </ThemeContextProvider>
   );
 }
 
