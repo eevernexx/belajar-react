@@ -12,7 +12,9 @@ function AuthLayout(props) {
             {/* container start */}
             <div className="w-full max-w-sm">
                 {/* logo start */}
-                <Logo />
+                <div className="animate-bounce">
+                    <Logo />
+                </div>
                 {children}
                 {/* logo end */}
                 

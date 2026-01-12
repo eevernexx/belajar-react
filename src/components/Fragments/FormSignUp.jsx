@@ -1,61 +1,101 @@
 import React from 'react'
-import LabeledInput from '../Elements/LabeledInput';
-import CheckBox from '../Elements/CheckBox';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
+import * as Yup from 'yup';
 import Button from '../Elements/Button';
 import { Link } from 'react-router-dom'
 
-function FormSignup() {
+const SignUpSchema = Yup.object().shape({
+  name: Yup.string()
+    .required('Name wajib diisi'),
+  email: Yup.string()
+    .email('Email tidak valid')
+    .required('Email wajib diisi'),
+  password: Yup.string()
+    .min(8, 'Password minimal 8 karakter')
+    .required('Password wajib diisi'),
+  terms: Yup.boolean()
+    .oneOf([true], 'You must accept the terms and conditions')
+});
+
+function FormSignup({ onSubmit }) {
   return (
     <>
         {/* form start */}
-        
-        <div className="mt-5">
-            <span className='flex justify-center m-5 font-bold'>Create an account</span>
-          <form action="">
-            <div className="mb-6">
-                <LabeledInput 
-                label="Name"
-                id="name"
-                type="text"
-                placeholder="Enter your name"
-                name="name"
-                />
-            </div>
-            <div className="mb-6">
-                <LabeledInput 
-                label="Email Address"
-                id="email"
-                type="email"
-                placeholder="santiko@example.com"
-                name="email"
-                />
-            </div>
-            <div className="mb-6">
-                <LabeledInput 
-                label="Password"
-                id="password"
-                type="password"
-                placeholder="enter your password"
-                name="password"
-                />
-            </div>
-            <div className="mb-6">
-                <CheckBox 
-                label="By continuing, you agree to our terms of service"
-                id="terms"
-                type="checkbox"
-                name="terms"
-                />
-            </div>
-            {/* button login */}
-            <Button>Sign Up</Button>
-          </form>
-        </div>
+        <Formik
+          initialValues={{
+            name: '',
+            email: '',
+            password: '',
+            terms: false
+          }}
+          validationSchema={SignUpSchema}
+          onSubmit={async (values, { setSubmitting }) => {
+            try {
+              await onSubmit(values.name, values.email, values.password);
+            } finally {
+              setSubmitting(false);
+            }
+          }}
+        >
+          {({ isSubmitting }) => (
+            <Form>
+              <div className="mt-5">
+                  <span className='flex justify-center m-5 font-bold'>Create an account</span>
+
+                  <div className="mb-6">
+                      <label htmlFor="name" className="block text-sm mb-2">Name</label>
+                      <Field
+                        name="name"
+                        type="text"
+                        placeholder="Enter your name"
+                        className="text-sm border rounded w-full py-2 px-3 text-slate-700 placeholder:opacity-50"
+                      />
+                      <ErrorMessage name="name" component="div" className="text-red-500 text-xs mt-1" />
+                  </div>
+                  <div className="mb-6">
+                      <label htmlFor="email" className="block text-sm mb-2">Email Address</label>
+                      <Field
+                        name="email"
+                        type="email"
+                        placeholder="santiko@example.com"
+                        className="text-sm border rounded w-full py-2 px-3 text-slate-700 placeholder:opacity-50"
+                      />
+                      <ErrorMessage name="email" component="div" className="text-red-500 text-xs mt-1" />
+                  </div>
+                  <div className="mb-6">
+                      <label htmlFor="password" className="block text-sm mb-2">Password</label>
+                      <Field
+                        name="password"
+                        type="password"
+                        placeholder="enter your password"
+                        className="text-sm border rounded w-full py-2 px-3 text-slate-700 placeholder:opacity-50"
+                      />
+                      <ErrorMessage name="password" component="div" className="text-red-500 text-xs mt-1" />
+                  </div>
+                  <div className="mb-6">
+                      <label className="flex items-center">
+                        <Field
+                          name="terms"
+                          type="checkbox"
+                          className="mr-2"
+                        />
+                        <span className="text-sm">By continuing, you agree to our terms of service</span>
+                      </label>
+                      <ErrorMessage name="terms" component="div" className="text-red-500 text-xs mt-1" />
+                  </div>
+                  {/* button sign up */}
+                  <Button type="submit" disabled={isSubmitting}>
+                    {isSubmitting ? 'Loading...' : 'Sign Up'}
+                  </Button>
+              </div>
+            </Form>
+          )}
+        </Formik>
         {/* form end */}
         {/* teks start */}
         <div className="my-9 px-7 flex flex-col justify-center items-center text-xs text-gray-03">
           <div className="border border-gray-05 w-full"></div>
-          <div class="px-2 bg-special-mainBg absolute">or sign up with</div>
+          <div className="px-2 bg-special-mainBg absolute">or sign up with</div>
         </div>
         {/* teks end */}
         {/* sign in with google start */}
@@ -95,7 +135,7 @@ function FormSignup() {
         {/* link start */}
         <div className="flex justify-center text-sm text-gray-01">
             <span className='mr-1'>Already have an account?</span>
-            <Link to="/login" className="text-primary font-bold">
+            <Link to="/login" className="text-primary font-bold cursor-pointer hover:scale-105 transition-transform duration-200">
             Sign In Here
             </Link>
         </div>

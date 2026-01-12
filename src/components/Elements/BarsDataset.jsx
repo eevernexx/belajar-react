@@ -24,7 +24,7 @@ const chartSetting = {
   slotProps: {
     legend: {
       direction: 'row',
-      position: { vertical: 'top', horizontal: 'middle' },
+      position: { vertical: 'top', horizontal: 'center' },
       padding: 0,
     },
   },
